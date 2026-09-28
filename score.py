@@ -20,5 +20,5 @@ class Score(pygame.sprite.Sprite):
      
     def printout(self):
         round_timer = round(self.timer)
-        print(f"Score {self.numb + (round_timer * 10)}")
-        print(f"time {round_timer}")
+        print(f"Score {self.numb + (round_timer * 10)} pts")
+        print(f"time {round_timer} sconds")
