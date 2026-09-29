@@ -8,6 +8,7 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
         self.cooldown_timer = 0
+        self.blast_timer = 0
         
     def draw(self, screen: pygame.Surface) -> None:
         pygame.draw.polygon(screen, "white", self.triangle(), LINE_WIDTH)
@@ -32,6 +33,7 @@ class Player(CircleShape):
     def update(self, dt: float) -> None:
         keys = pygame.key.get_pressed()
         self.cooldown_timer -= dt
+        self.blast_timer -= dt
 
         if keys[pygame.K_a]:
             self.rotate(-dt)
@@ -47,6 +49,9 @@ class Player(CircleShape):
         
         if keys[pygame.K_SPACE]:
             self.shoot()
+        
+        if keys[pygame.K_LSHIFT]:
+            self.blast()
             
 
     def shoot(self):
@@ -54,4 +59,17 @@ class Player(CircleShape):
             return
         shot = Shot(self.position.x, self.position.y)
         shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
-        self.cooldown_timer = PLAYER_SHOT_COOLDOWNN_SECONDS        
+        self.cooldown_timer = PLAYER_SHOT_COOLDOWNN_SECONDS       
+    
+    def boost(self):
+        pass
+
+    def blast(self):
+        if self.blast_timer > 0:
+            return
+        
+        for i in range(0, 18):
+            shot = Shot(self.position.x, self.position.y)
+            shot.velocity = pygame.Vector2(0, 1).rotate(20 * (i + 1)) * PLAYER_SHOOT_SPEED
+        
+        self.blast_timer = PLAYER_SHOT_COOLDOWNN_SECONDS * 10

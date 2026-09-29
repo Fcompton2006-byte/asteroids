@@ -3,7 +3,7 @@ import random
 from circleshape import CircleShape
 from constants import *
 from logger import log_event
-
+from score import Score
 
 class Asteroid(CircleShape):
     def __init__(self, x: float, y: float, radius: float) -> None:

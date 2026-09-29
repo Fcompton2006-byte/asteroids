@@ -33,12 +33,12 @@ def main():
         log_state()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                return score.printout()
                 return
         updatable.update(dt)
         for item in asteroids:
             if item.collides_with(player):
                 log_event("player_hit")
-                print("Game over!")
                 return score.printout()
                 sys.exit()
         for asteroid in asteroids:

@@ -1,5 +1,5 @@
 import pygame
-from constants import*
+from constants import *
 class Score(pygame.sprite.Sprite):
     def __init__(self):
         if hasattr(self, "containers"):
@@ -20,5 +20,8 @@ class Score(pygame.sprite.Sprite):
      
     def printout(self):
         round_timer = round(self.timer)
-        print(f"Score {self.numb + (round_timer * 10)} pts")
+        print("Game over!")
+        print("==================")
         print(f"time {round_timer} sconds")
+        print(f"Score {self.numb + (round_timer * 10)} pts")
+        print("==================")
