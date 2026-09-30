@@ -3,6 +3,7 @@ from collections.abc import Callable
 
 import pygame
 from asteroids import Asteroid
+from powerup import Powerups
 from constants import *
 
 Edge = tuple[pygame.Vector2, Callable[[float], pygame.Vector2]]
@@ -44,6 +45,13 @@ class AsteroidField(pygame.sprite.Sprite):
         asteroid = Asteroid(position.x, position.y, radius)
         asteroid.velocity = velocity
 
+    def boost_spawn(
+        self, radius: float, position: pygame.Vector2, velocity: pygame.Vector2
+    ) -> None:
+        powerup = Powerups(position.x, position.y, radius)
+        powerup.velocity = velocity
+
+
     def update(self, dt: float) -> None:
         self.spawn_timer += dt
         if self.spawn_timer > ASTEROID_SPAWN_RATE_SECONDS:
@@ -54,6 +62,9 @@ class AsteroidField(pygame.sprite.Sprite):
             speed = random.randint(40, 100)
             velocity = edge[0] * speed
             velocity = velocity.rotate(random.randint(-30, 30))
+            velocity2 = velocity.rotate(random.randint(-30, 30))
             position = edge[1](random.uniform(0, 1))
+            position2 = edge[1](random.uniform(0, 1))
             kind = random.randint(1, ASTEROID_KINDS)
             self.spawn(ASTEROID_MIN_RADIUS * kind, position, velocity)
+            self.boost_spawn(ASTEROID_MIN_RADIUS, position2, velocity2)
