@@ -67,4 +67,4 @@ class AsteroidField(pygame.sprite.Sprite):
             position2 = edge[1](random.uniform(0, 1))
             kind = random.randint(1, ASTEROID_KINDS)
             self.spawn(ASTEROID_MIN_RADIUS * kind, position, velocity)
-            self.boost_spawn(ASTEROID_MIN_RADIUS, position2, velocity2)
+            # self.boost_spawn(ASTEROID_MIN_RADIUS, position2, velocity2)

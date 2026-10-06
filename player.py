@@ -42,7 +42,8 @@ class Player(CircleShape):
         # Adds controlls to the player
         keys = pygame.key.get_pressed()
         self.cooldown_timer -= dt
-        self.blast_timer -= dt
+        if self.blast_timer >= 0:
+            self.blast_timer -= dt
         self.shotgun_timer -= dt
 
         if keys[pygame.K_a]:
@@ -92,8 +93,8 @@ class Player(CircleShape):
     def shotgun(self):
         if self.shotgun_timer > 0:
             return
-        shotgun_radius = self.rotation - 60
+        shotgun_radius = self.rotation - 30
         for i in range(0, 5):
             shot = Shot(self.position.x, self.position.y)
-            shot.velocity = pygame.Vector2(0, 1).rotate(shotgun_radius + ((i + 1) * 20)) * PLAYER_SHOOT_SPEED
+            shot.velocity = pygame.Vector2(0, 1).rotate(shotgun_radius + ((i + 1) * 10)) * PLAYER_SHOOT_SPEED
         self.shotgun_timer = PLAYER_SHOT_COOLDOWNN_SECONDS * 5

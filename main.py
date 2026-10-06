@@ -7,10 +7,13 @@ from asteroidsfield import AsteroidField
 from logger import log_event
 from shot import Shot
 from score import Score
+from buttons import Button
 import sys
+
 
 # Game
 def main():
+
 
     # Start up print
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
@@ -24,6 +27,9 @@ def main():
     font = pygame.font.SysFont("Arial", 20)
     
     dt = 0.0
+
+    # make a start button you need to press to play the game
+
 
     # Establish groups
     updatable = pygame.sprite.Group()
@@ -46,6 +52,7 @@ def main():
     while True:
         log_state()
         score_board = font.render(score.printout(), True, (255, 255, 255))
+        cooldown = font.render(f"supernova         {round(player.blast_timer)} seconds", True, (255, 255, 255))
 
         # Make the exit work
         for event in pygame.event.get():
@@ -75,6 +82,7 @@ def main():
         # Print the game to the screen
         screen.fill("black")
         screen.blit(score_board, (900, 100))
+        screen.blit(cooldown, (1000, 120))
         for item in drawable:
             item.draw(screen)
         pygame.display.flip()
